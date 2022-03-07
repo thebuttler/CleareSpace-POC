@@ -19,7 +19,7 @@ import { ref } from 'vue';
 import apikey from '@/env.js';
 
 export default {
-
+  name: "Header",
   data() {
     return {
       searchText: ref(""),

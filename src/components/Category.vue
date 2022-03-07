@@ -7,7 +7,7 @@
         v-for="movie in category.movies"
         :key="movie.id"
         :style="{ backgroundImage: `url(${movie.backdrop})` }"
-        @click="handleClick(movie.id)">
+        @click="handleClick(Movie.id)">
         <div class="overlay"></div>
         <div class="title-movie">{{ movie.title }}</div>
       </div>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "MyCategory",
+  name: "Category",
   props: {
     category: {
       type: Object,

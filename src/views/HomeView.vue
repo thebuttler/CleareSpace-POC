@@ -27,11 +27,12 @@ export default {
           if (category) {
             category.movies.push(movie);
           } else {
+            //object is movie but when changed the name import fails? - Call the variable!!?
             categories.push({ name: genre, movies: [Movie] });
           }
         });
         return categories;
-      }, []);
+      }, []); 
     },
   },
 };
