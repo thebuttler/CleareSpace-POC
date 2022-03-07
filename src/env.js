@@ -1,5 +1,7 @@
 import axios from "axios";
 
+//conection to the API using the bearer token
+
 const url = "https://wookie.codesubmit.io";
 const token = "Bearer Wookie2021";
 
