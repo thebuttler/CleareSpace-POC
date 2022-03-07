@@ -1,30 +1,42 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div id="app">
+    <Header></Header>
+    <router-view />
+  </div>
 </template>
 
+<script>
+import Header from './components/Header.vue';
+import Movie from './models/movie'; 
+import apikey from '@/env.js';
+
+export default {
+  components: {
+    Header,
+  },
+  created() {
+    apikey.getAll().then((res) => {
+      const movies = res.data.movies.map((m) => new Movie(m));
+      this.$store.dispatch("setMovies", movies);
+    });
+  },
+};
+</script>
+
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+ * { 
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
-nav {
-  padding: 30px;
+   &::selection {
+     background: transparentize($color: #42b883, $amount: 0);
+   }
+ }
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+ body {
+   background-color: #35495e;
+ }
 </style>

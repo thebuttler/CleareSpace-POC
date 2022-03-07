@@ -1,18 +1,38 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Category v-for="cat in categories" :key="cat.name" :category="cat" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Category from '../components/Category.vue';
+import Movie from '../models/movie';
 
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+  components: { Category },
+  name: "HomeView",
+  data() {
+    return {}; 
+  },
+  computed: {
+    //Get the movies from the API
+    movies() {
+      return this.$store.getters.getMovies;
+    },
+    //funtion to return movies filtered by category
+    categories() {
+      return this.movies.reduce((categories, movie) => {
+        movie.genres.forEach((genre) => {
+          const category = categories.find((c) => c.name ===genre);
+          if (category) {
+            category.movies.push(movie);
+          } else {
+            categories.push({ name: genre, movies: [Movie] });
+          }
+        });
+        return categories;
+      }, []);
+    },
+  },
+};
 </script>
